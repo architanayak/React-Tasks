@@ -1,0 +1,35 @@
+.wrapper{
+  margin : 100px 300px;
+  border : 2px ridge;
+  height: 600px;
+}
+.column-left{
+  float: left;
+  margin:100px;
+  padding:30px;
+  border: 2px ridge;
+  height: 400px;
+}
+.column-right{
+  margin-top:100px;
+  margin-left:600px;
+  margin-right: 100px;
+  padding:30px;
+  border: 2px ridge;
+  height: 400px;
+}
+.button{
+  float: left;
+  margin-top:250px;
+}
+.fa-icons{
+  margin-left:400px;
+  margin-top:-500px;
+  margin-bottom:5px;
+}
+.buttons{
+  margin-top:-280px;
+}
+.clicked{
+  color: rebeccapurple; 
+}
