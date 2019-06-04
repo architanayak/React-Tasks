@@ -1,10 +1,9 @@
-import React, { Component, useState } from 'react';
-import './App.css'
+import React, { Component } from 'react';
+import './Column.css'
 import { Button } from 'reactstrap';
 import { FaSortUp, FaSortDown, FaTimes } from 'react-icons/fa';
 import _ from 'lodash';
-
-class App extends Component {
+class Column extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +11,9 @@ class App extends Component {
       selectedColumns: [],
       tempAvailableColumns: [],
       tempSelectedColumns: [],
-      tempMove: {}
+      tempMove: {},
+      active: [],
+      color: ''
     };
     this.cols =
       [
@@ -34,8 +35,16 @@ class App extends Component {
   componentWillMount() {
     this.setState({ availableColumns: [...this.cols] })
   }
-  availableColumn(col) {
+  availableColumn(col, key) {
+    // debugger;
     const { tempAvailableColumns } = this.state;
+    // if (active === key - 1) {
+    //   this.setState({ active: null })
+    // } else {
+    //   active.push(col.name)
+    //   this.setState({ active: active })
+    // }
+
     if (tempAvailableColumns.find(x => x.index === col.index)) {
       return;
     } else {
@@ -53,11 +62,12 @@ class App extends Component {
       availableColumns: filtered_availableColumn,
       selectedColumns: selectedColumns,
       tempAvailableColumns: [],
+      // active: []
     });
   }
   selectedColumn(col) {
     const tempSelectedColumns = [...this.state.tempSelectedColumns];
-    if (tempSelectedColumns.indexOf(col) == -1) {
+    if (tempSelectedColumns.indexOf(col) === -1) {
       tempSelectedColumns.push(col);
     }
     this.setState({ tempSelectedColumns, tempMove: col })
@@ -65,23 +75,43 @@ class App extends Component {
   removeColumn() {
     const { tempSelectedColumns, selectedColumns } = this.state;
     const availableColumns = [...this.state.availableColumns, ...tempSelectedColumns]
-    let soterdAvailableColumns = _.sortBy(availableColumns, 'index');
+    let sortedAvailableColumns = _.sortBy(availableColumns, 'index');
     const filtered_selectedCol = _.differenceBy(selectedColumns, tempSelectedColumns, 'index')
 
     this.setState({
-      availableColumns: soterdAvailableColumns,
+      availableColumns: sortedAvailableColumns,
       selectedColumns: filtered_selectedCol,
       tempSelectedColumns: []
     })
   }
-  shiftUpwards() {
+  shiftElementsUpDown(id) {
     const { tempMove, selectedColumns } = this.state;
-    let index = _.indexOf(selectedColumns, selectedColumns.find(x => x.index === tempMove.index))
-    console.log(index);
-    
-    selectedColumns.splice(index - 1, 0, selectedColumns.splice(index, 1)[0]);
+    if (selectedColumns !== null) {
+      let index = _.indexOf(selectedColumns, selectedColumns.find(x => x.index === tempMove.index))
+      console.log('index', index)
+      if (id === 'down') {
+        var prevIndex = (index + 1 + selectedColumns.length) % selectedColumns.length;
+        console.log('hkh', prevIndex)
 
-    this.setState({ selectedColumns: selectedColumns })
+      }
+      else if (id === 'up') {
+        var prevIndex = (index - 1 + selectedColumns.length) % selectedColumns.length;
+      }
+      selectedColumns.splice(prevIndex, 0, selectedColumns.splice(index, 1)[0]);
+
+      this.setState({ selectedColumns: selectedColumns })
+    }
+    else {
+      console.log('jklj')
+    }
+
+  }
+  divColor(col) {
+    // debugger;
+    if (this.state.tempAvailableColumns.find(x => x.index === col.index)) {
+      return 'blue';
+    }
+
   }
 
   render() {
@@ -91,7 +121,8 @@ class App extends Component {
           <h3>Available Column</h3>
           {this.state.availableColumns.map((col, key) => {
             return (
-              <div onClick={() => this.availableColumn(col)}
+              <div style={{ color: this.divColor(col) }}
+                onClick={() => this.availableColumn(col, key)}
                 key={col.index + key}
               >
                 {col.name}
@@ -100,7 +131,12 @@ class App extends Component {
           })}
         </div>
         <div className='button'>
-          <Button color='primary' onClick={() => this.addColumn()}>Add</Button>
+          <Button
+            disabled = {!this.state.tempAvailableColumns[0]}
+            color='primary'
+            onClick={() => this.addColumn()}>
+            Add
+          </Button>
         </div>
         <div className='column-right'>
           <h3>Selected Column</h3>
@@ -108,7 +144,7 @@ class App extends Component {
             return (
               <>
                 <div onClick={() => this.selectedColumn(col)}
-                  key={col.index + key}
+                  key={key}
                 >
                   {col.name}
                 </div>
@@ -117,13 +153,23 @@ class App extends Component {
           })}
         </div>
         <div className='buttons'>
-          <button onClick={() => this.shiftUpwards()} className='fa-icons'>
+          <button
+            disabled={!this.state.tempMove.name}
+            onClick={() => this.shiftElementsUpDown('up')}
+            className='fa-icons'
+          >
             <FaSortUp />
           </button>
-          <button className='fa-icons'>
+          <button
+            disabled={!this.state.tempMove.name}
+            onClick={() => this.shiftElementsUpDown('down')}
+            className='fa-icons'>
             <FaSortDown />
           </button>
-          <button onClick={() => this.removeColumn()} className='fa-icons'>
+          <button
+            disabled={!this.state.tempMove.name}
+            onClick={() => this.removeColumn()}
+            className='fa-icons'>
             <FaTimes />
           </button>
         </div>
@@ -131,4 +177,4 @@ class App extends Component {
     )
   }
 }
-export default App;
+export default Column;

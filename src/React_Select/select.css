@@ -1,0 +1,28 @@
+.wrapper-select{
+    margin-top: 5%;
+    margin-right: 20%;
+    margin-left: 20%;
+    border:2px ridge;
+    padding:3% 5% 15% 5% 
+}
+.select{
+    margin:3%;
+}
+.radio{
+    margin:3%;
+}
+.heading{
+    margin-top : 10px;
+    padding:0px
+}
+.form{
+    border:2px ridge;
+    margin:5% 20% 5% 20%;
+    padding:4% 2% ;
+    height: 500px
+}
+.quantity::-webkit-inner-spin-button, 
+.quantity::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

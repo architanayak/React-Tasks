@@ -1,0 +1,37 @@
+.parent{
+  height: 700px;  
+  display : flex;
+  margin: 100px;
+  width: 88%;
+  border : 2px ridge;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 20px;
+  font-family: Lato,sans-serif; 
+}
+.child1{
+  height : 600px;
+  width: 40%;
+  border : 2px ridge;
+  margin: 50px;
+}
+.child1-items{
+  padding:5px;
+  margin:15px;
+  border : 1px ridge;
+}
+.child2{
+  height : 600px;
+  width: 40%;
+  border : 2px ridge;
+  margin: 50px
+}
+.child2-items{
+  padding:5px;
+  margin:15px;
+}
+.checkbox{
+  height: 17px;
+  width:17px;
+  vertical-align: middle;
+}
