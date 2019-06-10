@@ -1,0 +1,11 @@
+.parent-textBox {
+    margin : 100px 600px;
+    padding: 20px;
+    height: 600px;
+}
+.textBox{
+    margin : 10px;
+}
+.button{
+    margin : 10px
+}
