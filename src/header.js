@@ -12,6 +12,7 @@ import Mobile from './Mobile_Input/mobile';
 import Parent from './Parent_Child_Comm/Parent';
 import ReactSelect from './React_Select/Select';
 import { ParentTextBox } from './Multiple_textBox_handling/parent';
+import MainFileUpload from './File_Upload';
 
 const header = [
   { name: 'Column Task', to: '/column' },
@@ -21,7 +22,8 @@ const header = [
   { name: 'Form using hooks', to: '/hooks_form' },
   { name: 'Mobile Input', to: '/mobile' },
   { name: 'Parent-Child-Communication', to: '/parent' },
-  { name: 'Multiple-TextBox', to: '/multiple-textbox' }
+  { name: 'Multiple-TextBox', to: '/multiple-textbox' },
+  { name: 'File Upload', to: '/file-upload' }
 ]
 class Header extends Component {
   render() {
@@ -47,6 +49,7 @@ class Header extends Component {
           <Route exact path='/mobile' component={Mobile}></Route>
           <Route exact path='/parent' component={Parent}></Route>
           <Route exact path='/multiple-textbox' component={ParentTextBox}></Route>
+          <Route exact path='/file-upload' component={MainFileUpload}></Route>
         </Switch>
       </div>
     )
